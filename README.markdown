@@ -37,3 +37,4 @@ Todo
 * color output
 * sync-friendly file format
 * [punchcard](http://gitready.com/images/punchcard.png)-style visualization
+* 'fire up an editor' in case people want to enter funky characters the shell hates
