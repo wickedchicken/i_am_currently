@@ -35,7 +35,7 @@ Todo
 ----
 * read/write configs from `~/.currentlyrc`
 * write to `~/.currentlog`
-* catch.com integration
+* catch.com integration (including offline storage until connectivity is up?)
 * show awesomeWM wibox example
 * auto-infer location tags from geolocation API
 * color output
