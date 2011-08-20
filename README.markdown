@@ -26,6 +26,10 @@ You can add multiple tags (contexts) to `currently` by using the `-c` flag; you 
 
 Of course, there are some fun uses for the data (plotting what times of the day you're most active, etc) so your old entries are stored. You can view the last *n* entries with the `-n` option: `currently -n 5`
 
+To Install
+----------
+
+    gem install currently
 
 Todo
 ----
