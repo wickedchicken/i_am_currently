@@ -5,3 +5,5 @@ Feature: basic CLI commands
   Scenario: getting help
   When I run `currently --help`
   Then the exit status should be 0
+  And the output should contain "usage"
+  And the output should contain "currently"
