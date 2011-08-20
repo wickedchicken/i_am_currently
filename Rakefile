@@ -12,6 +12,8 @@ task :default do
   puts "  to run after installing, run `currently`"
   puts "  to clean packages, run `rake clobber`"
   puts
+  puts "  to test: rake build && rake install && cucumber"
+  puts
   puts "  for more tasks run `rake -T`"
   puts
 end
