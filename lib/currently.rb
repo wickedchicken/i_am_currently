@@ -1,4 +1,5 @@
 require 'currently/version'
+require 'currently/filestore'
 require 'trollop'
 
 module Currently
@@ -24,7 +25,19 @@ module Currently
   available [options] are:
 EOS
       end
-      puts "currently hasn't been written yet!"
+
+      backingstore = Filestore.new(ENV["HOME"] + "/.currentlog")
+      if ARGV.count > 0
+        text = ARGV.join(" ")
+        backingstore.save(Entry.new(text))
+      else
+        last = backingstore.last
+        if last.count > 0 then
+          puts last.first.to_s
+        else
+          puts "[ entry log is empty ]"
+        end
+      end
     end
   end
 end
