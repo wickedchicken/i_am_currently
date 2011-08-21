@@ -24,9 +24,13 @@ module Currently
 
   available [options] are:
 EOS
+
+        opt :filestore, "Use local filestore", :type => :string
       end
 
-      backingstore = Filestore.new(ENV["HOME"] + "/.currentlog")
+      fname = ENV["HOME"] + "/.currentlog"
+      fname = opts[:filestore] if opts[:filestore] 
+      backingstore = Filestore.new(fname)
       if ARGV.count > 0
         text = ARGV.join(" ")
         backingstore.save(Entry.new(text))
