@@ -1,5 +1,6 @@
 require 'currently/version'
 require 'currently/filestore'
+require 'currently/catchstore'
 require 'trollop'
 
 module Currently
@@ -25,17 +26,36 @@ module Currently
   available [options] are:
 EOS
 
-        opt :filestore, "Use local filestore", :type => :string
+        opt :filestore, "use local filestore", :type => :string
+        opt :context, "select a context (work, home, etc)", :type => :string
+        opt :catch, "use catch, specify username:password", :type => :string
       end
 
-      fname = ENV["HOME"] + "/.currentlog"
-      fname = opts[:filestore] if opts[:filestore] 
-      backingstore = Filestore.new(fname)
+      unless opts[:catch]
+        fname = ENV["HOME"] + "/.currentlog"
+        fname = opts[:filestore] if opts[:filestore] 
+        backingstore = Filestore.new(fname)
+      else
+        user = opts[:catch].split(":")[0]
+        Trollop::die :catch, "must be in the format: username:password" if opts[:catch].split(":").length < 2
+        pw = opts[:catch].split(":")[1]
+        backingstore = Catchstore.new(user,pw)
+      end
+
       if ARGV.count > 0
         text = ARGV.join(" ")
-        backingstore.save(Entry.new(text))
+        if opts[:context]
+          ent = Entry.new(text,[opts[:context]])
+        else
+          ent = Entry.new(text)
+        end
+        backingstore.save(ent)
       else
-        last = backingstore.last
+        if opts[:context]
+          last = backingstore.last(1,opts[:context])
+        else
+          last = backingstore.last
+        end
         if last.count > 0 then
           puts last.first.to_s
         else

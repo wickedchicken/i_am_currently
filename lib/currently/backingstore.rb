@@ -1,7 +1,7 @@
 module Currently
 class Backingstore
   # retrieves last n entries
-  def last
+  def last(n = 1, context = nil)
     raise "not implemented!"
   end
 
